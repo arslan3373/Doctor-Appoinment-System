@@ -16,21 +16,21 @@ const Footer: React.FC = () => {
               <span className="text-xl font-bold">HealthCare</span>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
-              Your trusted healthcare partner, providing quality medical services 
-              and connecting you with the best doctors for comprehensive care.
+              Leading healthcare platform providing professional medical services, 
+              connecting patients with certified doctors for comprehensive healthcare solutions.
             </p>
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-blue-400" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
+                <span className="text-gray-300">+1 (800) HEALTH-1</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-blue-400" />
-                <span className="text-gray-300">info@healthcare.com</span>
+                <span className="text-gray-300">support@healthcareplus.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-blue-400" />
-                <span className="text-gray-300">123 Health Street, Medical City</span>
+                <span className="text-gray-300">Medical Plaza, Healthcare District</span>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © 2025 HealthCare. All rights reserved. Built with care for better health.
+            © 2025 HealthCare+. All rights reserved. Professional healthcare platform.
           </p>
         </div>
       </div>

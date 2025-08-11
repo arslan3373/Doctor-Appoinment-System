@@ -17,14 +17,15 @@ const Hero: React.FC = () => {
           >
             <div>
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Your Health is Our{' '}
+                Professional Healthcare{' '}
                 <span className="text-blue-600 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                  Priority
+                  Excellence
                 </span>
               </h1>
               <p className="text-xl text-gray-600 mt-6 leading-relaxed">
-                Connect with certified doctors, book appointments instantly, and access 
-                quality healthcare from the comfort of your home.
+                Experience world-class healthcare with our certified medical professionals. 
+                Book appointments, access video consultations, and manage your health records 
+                with our comprehensive platform.
               </p>
             </div>
 
@@ -46,16 +47,16 @@ const Hero: React.FC = () => {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 pt-8">
               <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold text-gray-900">500+</div>
+                <div className="text-2xl lg:text-3xl font-bold text-gray-900">1000+</div>
                 <div className="text-sm text-gray-600">Expert Doctors</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold text-gray-900">50k+</div>
+                <div className="text-2xl lg:text-3xl font-bold text-gray-900">100k+</div>
                 <div className="text-sm text-gray-600">Happy Patients</div>
               </div>
               <div className="text-center">
                 <div className="text-2xl lg:text-3xl font-bold text-gray-900">24/7</div>
-                <div className="text-sm text-gray-600">Support</div>
+                <div className="text-sm text-gray-600">Medical Support</div>
               </div>
             </div>
           </motion.div>

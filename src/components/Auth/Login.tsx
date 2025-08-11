@@ -17,28 +17,12 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      // Demo login - accept any email/password combination
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-      
-      // Mock user data
-      const mockUser = {
-        id: '1',
-        name: 'John Doe',
-        email: email,
-        phone: '+1234567890',
-        dateOfBirth: '1990-01-01',
-        gender: 'male' as const,
-        role: 'patient' as const
-      };
 
-      localStorage.setItem('user', JSON.stringify(mockUser));
-      localStorage.setItem('token', 'mock-token');
-      
+      await login(email, password);
       toast.success('Login successful!');
       navigate('/');
-      window.location.reload(); // Refresh to update auth context
     } catch (error) {
-      toast.error('Login failed. Please try again.');
+      toast.error(error.response?.data?.message || 'Login failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -152,12 +136,6 @@ const Login: React.FC = () => {
             </button>
           </form>
 
-          {/* Demo Notice */}
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-sm text-blue-800">
-              <strong>Demo Mode:</strong> Enter any email and password to login
-            </p>
-          </div>
         </div>
 
         {/* Sign Up Link */}

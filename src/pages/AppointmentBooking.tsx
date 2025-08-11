@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
+import { appointmentsAPI } from '../services/api';
 
 // Sample doctor data
 const getDoctorById = (id: string) => {
@@ -117,32 +118,22 @@ const AppointmentBooking: React.FC = () => {
   const handleBookAppointment = async () => {
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Create appointment object
-      const appointment = {
-        id: Math.random().toString(36).substr(2, 9),
+      const appointmentData = {
         doctorId: doctor.id,
-        doctorName: doctor.name,
-        patientName: formData.patientName,
         date: selectedDate,
         time: selectedTime,
         type: appointmentType,
-        status: 'scheduled',
-        consultationFee: doctor.consultationFee,
-        ...formData
+        symptoms: formData.symptoms,
+        patientName: formData.patientName,
+        phone: formData.phone
       };
 
-      // Store in localStorage (in real app, send to backend)
-      const existingAppointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-      existingAppointments.push(appointment);
-      localStorage.setItem('appointments', JSON.stringify(existingAppointments));
+      await appointmentsAPI.create(appointmentData);
 
       toast.success('Appointment booked successfully!');
       setCurrentStep(4); // Success step
     } catch (error) {
-      toast.error('Failed to book appointment. Please try again.');
+      toast.error(error.response?.data?.message || 'Failed to book appointment. Please try again.');
     } finally {
       setLoading(false);
     }

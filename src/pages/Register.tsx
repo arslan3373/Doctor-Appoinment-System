@@ -38,28 +38,12 @@ const Register: React.FC = () => {
     }
 
     try {
-      // Demo registration - accept any valid data
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-      
-      // Mock user data
-      const mockUser = {
-        id: Math.random().toString(36).substr(2, 9),
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        dateOfBirth: formData.dateOfBirth,
-        gender: formData.gender as 'male' | 'female' | 'other',
-        role: 'patient' as const
-      };
 
-      localStorage.setItem('user', JSON.stringify(mockUser));
-      localStorage.setItem('token', 'mock-token');
-      
+      await register(formData);
       toast.success('Registration successful!');
       navigate('/');
-      window.location.reload(); // Refresh to update auth context
     } catch (error) {
-      toast.error('Registration failed. Please try again.');
+      toast.error(error.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -269,12 +253,6 @@ const Register: React.FC = () => {
             </button>
           </form>
 
-          {/* Demo Notice */}
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-sm text-blue-800">
-              <strong>Demo Mode:</strong> All fields are required but data is stored locally
-            </p>
-          </div>
         </div>
 
         {/* Sign In Link */}

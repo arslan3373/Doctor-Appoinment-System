@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Calendar, Clock, Video, MapPin, Phone, Mail, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { appointmentsAPI } from '../services/api';
 
 interface Appointment {
   id: string;
@@ -25,9 +26,18 @@ const MyAppointments: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'upcoming' | 'completed' | 'cancelled'>('all');
 
   useEffect(() => {
-    // Load appointments from localStorage
-    const storedAppointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-    setAppointments(storedAppointments);
+    const fetchAppointments = async () => {
+      try {
+        const response = await appointmentsAPI.getAll();
+        setAppointments(response.data);
+      } catch (error) {
+        console.error('Failed to fetch appointments:', error);
+      }
+    };
+
+    if (user) {
+      fetchAppointments();
+    }
   }, []);
 
   const filteredAppointments = appointments.filter(appointment => {

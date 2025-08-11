@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Video, Clock, User, CheckCircle } from 'lucide-react';
-import VideoCall from '../components/VideoConsultation/VideoCall';
+import VideoCallRoom from '../components/VideoCall/VideoCallRoom';
+import { videoAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 const VideoConsultation: React.FC = () => {
   const { doctorId } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [callState, setCallState] = useState<'waiting' | 'connecting' | 'connected' | 'ended'>('waiting');
-  const [connectionTime, setConnectionTime] = useState(0);
+  const [roomId, setRoomId] = useState<string>('');
 
   // Mock doctor data - in real app, fetch based on doctorId
   const doctor = {
@@ -21,9 +24,17 @@ const VideoConsultation: React.FC = () => {
 
   const startCall = () => {
     setCallState('connecting');
-    setTimeout(() => {
-      setCallState('connected');
-    }, 3000);
+    
+    // Create video room
+    videoAPI.createRoom().then(response => {
+      setRoomId(response.data.roomId);
+      setTimeout(() => {
+        setCallState('connected');
+      }, 2000);
+    }).catch(error => {
+      console.error('Failed to create room:', error);
+      setCallState('waiting');
+    });
   };
 
   const endCall = () => {
@@ -36,7 +47,10 @@ const VideoConsultation: React.FC = () => {
 
   if (callState === 'connected') {
     return (
-      <VideoCall
+      <VideoCallRoom
+        roomId={roomId}
+        userId={user?.id || 'anonymous'}
+        userName={user?.name || 'Anonymous'}
         doctorName={doctor.name}
         doctorImage={doctor.image}
         onEndCall={endCall}
